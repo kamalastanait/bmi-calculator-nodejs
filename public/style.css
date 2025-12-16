@@ -1,17 +1,92 @@
+/* Общие стили страницы */
 body {
-    font-family: Arial;
-    background: #f4f4f4;
-    text-align: center;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
 }
 
+/* Стили формы */
 form {
-    background: white;
+    background: #ffffff;
     padding: 20px;
-    display: inline-block;
-    margin-top: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    margin-bottom: 20px;
 }
 
 input, button {
     padding: 10px;
-    margin: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    width: 100%;
+    font-size: 16px;
+}
+
+button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #45a049;
+}
+
+/* Контейнер для сообщений */
+.chat-container {
+    background: #fff;
+    width: 400px;
+    max-height: 500px;
+    overflow-y: auto;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+/* Сообщения */
+.message {
+    margin: 10px 0;
+    padding: 10px 15px;
+    border-radius: 12px;
+    display: inline-block;
+    max-width: 80%;
+}
+
+.message.user {
+    background: #4CAF50;
+    color: white;
+    align-self: flex-end;
+}
+
+.message.bot {
+    background: #e0e0e0;
+    color: #333;
+    align-self: flex-start;
+}
+
+/* Скроллбар */
+.chat-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-container::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.chat-container::-webkit-scrollbar-thumb:hover {
+    background: #999;
 }
