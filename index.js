@@ -1,37 +1,33 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const app = express();
+form.addEventListener('submit', function(e){
+    e.preventDefault();
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
+    const weight = parseFloat(document.getElementById('weight').value);
+    const height = parseFloat(document.getElementById('height').value);
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/views/index.html');
-});
-
-app.post('/calculate-bmi', (req, res) => {
-    const weight = parseFloat(req.body.weight);
-    const height = parseFloat(req.body.height);
-
-    if (weight <= 0 || height <= 0 || isNaN(weight) || isNaN(height)) {
-        return res.send('Invalid input. Please enter positive numbers.');
+    if(weight <= 0 || height <= 0){
+        resultDiv.textContent = "Please enter valid numbers!";
+        resultDiv.className = 'result show error';
+        return;
     }
 
     const bmi = weight / (height * height);
-    let category = '';
+    let message = `Your BMI: ${bmi.toFixed(1)}`;
 
-    if (bmi < 18.5) category = 'Underweight';
-    else if (bmi < 24.9) category = 'Normal';
-    else if (bmi < 29.9) category = 'Overweight';
-    else category = 'Obese';
+    // Убираем старые классы
+    resultDiv.className = 'result show';
 
-    res.send(`
-        <h1>Your BMI: ${bmi.toFixed(2)}</h1>
-        <h2>Category: ${category}</h2>
-        <a href="/">Back</a>
-    `);
+    // Цвета в зависимости от BMI
+    if(bmi < 18.5 || bmi > 30){
+        resultDiv.classList.add('red');
+        message += " (Unhealthy)";
+    } else if((bmi >= 18.5 && bmi < 20) || (bmi > 25 && bmi <= 30)){
+        resultDiv.classList.add('yellow');
+        message += " (Borderline)";
+    } else {
+        resultDiv.classList.add('green');
+        message += " (Normal)";
+    }
+
+    resultDiv.textContent = message;
 });
 
-app.listen(3000, () => {
-    console.log('Server running on http://localhost:3000');
-});
